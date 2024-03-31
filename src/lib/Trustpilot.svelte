@@ -8,13 +8,13 @@
     ];
   </script>
   
-  <div class="text-white p-8 mt-4 mb-4">
+  <div class="text-black bg-gray-900 p-10">
 
-    <h2 class="text-center text-black text-3xl mb-4">Det siger vores kunder om os</h2>
+    <h2 class="text-center text-white text-3xl mb-4">Det siger vores kunder om os</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {#each reviews as { name, rating, review }}
-        <div class="bg-gray-900 p-4 rounded-lg">
+        <div class="bg-white p-4 rounded-lg ">
           <div class="font-bold">{name}</div>
           <div class="text-yellow-400">{rating}</div>
           <p>{review}</p>

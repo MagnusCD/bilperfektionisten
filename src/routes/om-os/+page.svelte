@@ -1,5 +1,5 @@
 <!-- Om os Page -->
-<div class="min-h-screen bg-gray-900 text-white p-10 flex flex-col items-center">
+<div class="bg-gray-900 text-white p-10 flex flex-col items-center">
     <h1 class="text-4xl font-bold mb-6">Om Bilperfektionisten</h1>
     
     <div class="max-w-4xl text-lg leading-relaxed">
