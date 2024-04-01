@@ -6,7 +6,7 @@ const heroContent = {
   '/priser': {
     imageUrl: 'prices-hero-image.jpeg',
     title: 'Priser',
-    subtitle: 'Se vores priser her'
+    subtitle: 'Find vores knivskarpe tilbud her'
   },
   '/kontakt': {
     imageUrl: 'contact-hero-image.jpeg',
@@ -16,7 +16,7 @@ const heroContent = {
   '/om-os': {
     imageUrl: 'about-hero-image.jpeg',
     title: 'Om os',
-    subtitle: 'Lær mere om, hvem vi er her.'
+    subtitle: 'Lær mere om hvem vi er her'
   },
   // Add more routes as needed
 };

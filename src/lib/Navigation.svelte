@@ -24,21 +24,21 @@
   <ul class="ul flex justify-center gap-14">
     <li>
       <a href="/priser"
-         class="no-underline text-xl text-white font-bold relative overflow-hidden">
+         class="no-underline text-xl text-white font-black relative overflow-hidden">
          Priser
          <div class="{activePath === '/priser' ? 'after-underline' : 'after-hover-underline'}"></div>
       </a>
     </li>
     <li>
       <a href="/kontakt"
-         class="no-underline text-xl text-white font-bold relative overflow-hidden">
+         class="no-underline text-xl text-white font-black relative overflow-hidden">
          Kontakt
          <div class="{activePath === '/kontakt' ? 'after-underline' : 'after-hover-underline'}"></div>
       </a>
     </li>
     <li>
       <a href="/om-os"
-         class="no-underline text-xl text-white font-bold relative overflow-hidden">
+         class="no-underline text-xl text-white font-black relative overflow-hidden">
          Om os
          <div class="{activePath === '/om-os' ? 'after-underline' : 'after-hover-underline'}"></div>
       </a>
@@ -49,13 +49,21 @@
 <style>
   .navbar {
     z-index: 2;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .ul {
+    background-color: #0000007b;
+    width: 100%;
+    height: 60px;
+    margin-top: -8px;
+    display: flex;
+    align-items: center;
   }
 
   .sticky {
     top: 0;
     position: sticky;
-    transition: background-color 0.3s;
-    background-color: #0000007b;
   }
 
   .after-hover-underline::after {

@@ -20,23 +20,29 @@
         </a>
     </div>    
 
-    <div class="flex flex-col items-start space-y-1 pr-4">
-        <span class="font-bold">Ring til os
-        <a href="tel:+22942554" class="hover:text-gray-300 flex items-center justify-center font-bold relative">
-            <i class="fas fa-phone-alt pr-2"></i> <!-- Telephone icon -->
+    <div class="flex pr-4 flex-col items-start space-y-1 pr-4">
+        <a href="tel:+22942554" class="hover:text-gray-300">
+            <span class="call-us font-bold text-lg">Ring til os</span><br>
+            <i class="fas fa-phone-volume flex justify-center"></i> 
         </a>
-        </span>
     </div>
 </div>
 
 <style>
+    .call-us {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .fa-phone-volume {
+        color: #F7BD4D;
+    }
     .preheader-container {
         background-color: #20252B;
         height: 90px;
     }
     .logo {
         width: 140px;
-        margin-left: -30px;
+        margin-left: -35px;
     }
 
     .some-container {
