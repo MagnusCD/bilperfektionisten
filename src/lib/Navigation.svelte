@@ -9,7 +9,7 @@
   onMount(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      isSticky.set(scrollTop > 100);
+      isSticky.set(scrollTop > 90);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -21,22 +21,22 @@
 </script>
 
 <nav class="navbar h-16 flex items-center justify-center" class:sticky={$isSticky}>
-  <ul class="list-none p-0 flex gap-20 justify-center">
-    <li class="inline">
+  <ul class="ul flex justify-center gap-14">
+    <li>
       <a href="/priser"
          class="no-underline text-xl text-white font-bold relative overflow-hidden">
          Priser
          <div class="{activePath === '/priser' ? 'after-underline' : 'after-hover-underline'}"></div>
       </a>
     </li>
-    <li class="inline">
+    <li>
       <a href="/kontakt"
          class="no-underline text-xl text-white font-bold relative overflow-hidden">
          Kontakt
          <div class="{activePath === '/kontakt' ? 'after-underline' : 'after-hover-underline'}"></div>
       </a>
     </li>
-    <li class="inline">
+    <li>
       <a href="/om-os"
          class="no-underline text-xl text-white font-bold relative overflow-hidden">
          Om os

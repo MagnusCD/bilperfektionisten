@@ -27,8 +27,9 @@
   
  
         <div class="text-center">
-          <h2 class="font-bold text-lg mb-4">Åbningstider</h2>
-          <p><span class="fas fa-lg fa-clock mr-2"></span>Åbent alle dage i dagstimerne - ring eller skriv for at bestille en tid!</p>
+          <h2 class="font-bold text-lg mb-4">Telefontider</h2>
+          <p><span class="fas fa-lg fa-clock mr-2"></span>Mandag til fredag: 8:00-16:00</p>
+          <p>&ensp; &emsp; &nbsp; &nbsp; Lørdag og søndag: 10:00-16:00</p>
         </div>
       </div>
   

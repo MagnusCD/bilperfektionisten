@@ -32,7 +32,7 @@ $: currentContent = heroContent[$page.url.pathname] || {
 
 <div class="hero-image bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url({currentContent.imageUrl});">
   <div class="text-white pt-20">
-    <h1 class="font-ltsaeada font-bold text-5xl text-center font-bold mb-2 flex justify-center pt-20">{currentContent.title}</h1>
+    <h1 class="font-ltsaeada font-bold text-4xl text-center font-bold mb-2 flex justify-center pt-20">{currentContent.title}</h1>
     <p class="text-xl text-center flex justify-center">{currentContent.subtitle}<span class="orange pl-1"></span></p>
   </div>
 </div>
@@ -40,6 +40,6 @@ $: currentContent = heroContent[$page.url.pathname] || {
 <style>
   .hero-image {
     margin-top: -65px;
-    height: 500px;
+    height: 90vh;
   }
 </style>

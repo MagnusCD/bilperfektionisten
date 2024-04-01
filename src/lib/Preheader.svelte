@@ -6,10 +6,10 @@
 <div class="preheader-container text-white flex justify-between items-center px-2">
     <!-- Social Media Icons -->
     <div class="some-container flex items-center space-x-4 sm: display-none">
-        <a href="https://facebook.com" class="hover:text-gray-300">
+        <a href="https://www.facebook.com/profile.php?id=61552712496834" class="hover:text-gray-300">
             <i class="fab fa-lg fa-facebook-f"></i>
         </a>
-        <a href="https://instagram.com" class="hover:text-gray-300">
+        <a href="https://www.instagram.com/bilperfektionisten/?fbclid=IwAR11mIVIprrjUjppDJlRzL8WvRjcOQw2WIMl3OquZN328OLVGR_b2Vyz1Nk" class="hover:text-gray-300">
             <i class="fab fa-lg fa-instagram"></i>
         </a>
     </div>
@@ -20,23 +20,19 @@
         </a>
     </div>    
 
-    <!-- Business Info -->
     <div class="flex flex-col items-start space-y-1 pr-4">
-        <span class="font-bold">Ring til os</span>
-        <span class="font-bold relative">
-            22 94 25 54
-            <div class="underline absolute left-0 bottom-0 h-1 w-full"></div>
+        <span class="font-bold">Ring til os
+        <a href="tel:+22942554" class="hover:text-gray-300 flex items-center justify-center font-bold relative">
+            <i class="fas fa-phone-alt pr-2"></i> <!-- Telephone icon -->
+        </a>
         </span>
     </div>
-
 </div>
 
 <style>
     .preheader-container {
         background-color: #20252B;
-    }
-    .underline {
-        background-color: #F8ECA3;
+        height: 90px;
     }
     .logo {
         width: 140px;
