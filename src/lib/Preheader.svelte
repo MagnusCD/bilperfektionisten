@@ -22,7 +22,7 @@
 
     <div class="flex pr-4 flex-col items-start space-y-1 pr-4">
         <a href="tel:+22942554" class="hover:text-gray-300">
-            <span class="call-us font-bold text-lg">Ring til os</span><br>
+            <span class="call-us font-bold">Ring til os</span><br>
             <i class="fas fa-phone-volume flex justify-center"></i> 
         </a>
     </div>

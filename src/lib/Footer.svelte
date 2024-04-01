@@ -10,10 +10,10 @@
         <div class=text-center>
           <h2 class="font-bold text-xl mb-4">Navigation</h2>
           <ul>
-            <li><a href="/" class="hover:text-blue-300">Hjem</a></li>
-            <li><a href="/priser" class="hover:text-blue-300">Priser</a></li>
-            <li><a href="/kontakt" class="hover:text-blue-300">Kontakt</a></li>
-            <li><a href="/om-os" class="hover:text-blue-300">Om os</a></li>
+            <li><a href="/" class="hover:text-blue-300 text-lg">Hjem</a></li>
+            <li><a href="/priser" class="hover:text-blue-300 text-lg">Priser</a></li>
+            <li><a href="/kontakt" class="hover:text-blue-300 text-lg">Kontakt</a></li>
+            <li><a href="/om-os" class="hover:text-blue-300 text-lg">Om os</a></li>
           </ul>
         </div>
 
@@ -36,6 +36,10 @@
 
       <div class="mt-8 pt-8 md:pt-12 border-t border-gray-700">
         <p class="text-center text-gray-400">&copy; 2024 Bilperfektionisten. Alle rettigheder forbeholdes.</p>
+       <!--
+        <br>
+        <p class="text-center text-sm text-gray-400">Website af magnus.danielsen@hotmail.com</p>
+        -->
       </div>
     </div>
 </footer>
