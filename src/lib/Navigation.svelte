@@ -53,7 +53,6 @@
   }
 
   .ul {
-    background-color: #0000007b;
     width: 100%;
     height: 60px;
     margin-top: -8px;
@@ -64,6 +63,8 @@
   .sticky {
     top: 0;
     position: sticky;
+    background-color: #0000007b;
+    transition: background-color 0.3s;
   }
 
   .after-hover-underline::after {
