@@ -30,5 +30,14 @@
 
 <div class="bg-gray-900 p-12 text-white flex flex-col items-center">
     <h1 class="text-4xl pb-6 font-bold">{sectionTitle}</h1>
-    {@html sectionContent.split('\n').join('<br>')} <!-- Split and join to convert line breaks to <br> tags -->
-</div>
+    <p class="about-text">
+      {@html sectionContent.split('\n').join('<br>')} <!-- Split and join to convert line breaks to <br> tags -->
+    </p>
+  </div>
+
+<style>
+  .about-text {
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+</style>
