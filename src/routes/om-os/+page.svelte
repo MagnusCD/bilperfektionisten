@@ -37,7 +37,7 @@
 
 <style>
   .about-text {
-    padding-left: 10vw;
-    padding-right: 10vw;
+    padding-left: 7vw;
+    padding-right: 7vw;
   }
 </style>
