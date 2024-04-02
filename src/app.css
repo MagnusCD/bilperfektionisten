@@ -8,6 +8,12 @@
     font-weight: normal;
     font-style: normal;
   } 
+  @font-face {
+    font-family: 'LTSaeada';
+    src: url('/fonts/LTSaeada-Bold.woff2') format('woff2');
+    font-weight: bold; /* 700 */
+    font-style: normal;
+  }
   body {
     font-family: 'LTSaeada', sans-serif;
   } 
