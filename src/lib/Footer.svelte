@@ -29,7 +29,7 @@
         <div class="text-center">
           <h2 class="font-bold text-xl mb-4">Telefontider</h2>
           <p class="text-lg"><span class="fas fa-clock mr-2"></span>Mandag til fredag: 8:00-16:00</p>
-          <p class="text-lg">&ensp; &emsp; &nbsp; &nbsp; Lørdag og søndag: 10:00-16:00</p>
+          <p class="text-lg">&ensp; &emsp; Lørdag og søndag: 10:00-16:00</p>
         </div>
       </div>
   

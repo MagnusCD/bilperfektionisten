@@ -100,13 +100,13 @@
     <!-- Work Car Checkbox -->
     <div class="mb-4 flex items-center">
       <input type="checkbox" name="isWorkCar" id="isWorkCar" class="mr-2">
-      <label for="isWorkCar" class="text-white">Er det en arbejdsbil?</label>
+      <label for="isWorkCar" class="text-white">Er din bil en arbejdsbil?</label>
     </div>
 
     <!-- Pets in Car Checkbox -->
     <div class="mb-4 flex items-center">
       <input type="checkbox" name="hasPets" id="hasPets" class="mr-2">
-      <label for="hasPets" class="text-white">Bliver bilen brugt til transport af dyr?</label>
+      <label for="hasPets" class="text-white">Bliver din bil brugt til transport af dyr?</label>
     </div>
 
     
