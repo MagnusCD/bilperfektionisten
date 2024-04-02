@@ -34,7 +34,7 @@
   
     <!-- Right side with content -->
     <div id="services-section" class="w-2/3 flex flex-col justify-center p-10 space-y-4">
-      <h2 class="text-center text-white text-2xl font-bold mb-4">Hvad tilbyder vi?</h2>
+      <h2 class="title text-center text-white text-2xl font-bold mb-4">Hvad tilbyder vi?</h2>
       
       {#if servicesInView}
         <p in:fly="{{ x: -300, delay: 100, duration: 800 }}" class="flex items-center text-white text-lg">
