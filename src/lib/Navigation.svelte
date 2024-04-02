@@ -54,10 +54,9 @@
 
   .ul {
     width: 100%;
-    height: 60px;
-    margin-top: -8px;
     display: flex;
     align-items: center;
+    margin-top: 5px;
   }
 
   .sticky {
