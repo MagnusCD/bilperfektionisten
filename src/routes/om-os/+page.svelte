@@ -28,7 +28,7 @@
   });
 </script>
 
-<div class="bg-gray-900 p-12 text-white flex flex-col items-center">
+<div class="bg-gray-900 p-12 text-white flex flex-col items-center pb-20">
     <h1 class="text-2xl pb-6 font-bold">{sectionTitle}</h1>
     <p class="about-text">
       {@html sectionContent.split('\n').join('<br>')} <!-- Split and join to convert line breaks to <br> tags -->

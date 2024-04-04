@@ -24,7 +24,7 @@
   };
 </script>
 
-<div class="offers-container flex flex-wrap justify-center gap-4 p-12 bg-gray-900 text-black">
+<div class="offers-container flex flex-wrap justify-center gap-4 p-12 pb-20 bg-gray-900 text-black">
   {#each offers as offer, index (offer.id)}
     <div class="offer-box flex flex-col max-w-xs w-full p-3 border border-gray-700 rounded-lg bg-white">
       <h3 class="title text-xl font-bold mb-2">{offer.title}</h3>

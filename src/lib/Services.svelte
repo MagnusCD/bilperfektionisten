@@ -28,7 +28,7 @@
 </script>
 
 
-<div class="flex bg-gray-900">
+<div class="flex bg-gray-900 pt-20">
   <!-- Left side with the image -->
     <div class="image w-1/3 bg-cover bg-center" style="background-image: url({imageUrl});"></div>
 

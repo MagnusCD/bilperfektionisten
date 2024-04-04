@@ -69,7 +69,7 @@
 
   
 <!-- This is the outer container that will take the full width and height of the viewport -->
-<div class="flex flex-col w-100 bg-gray-900 p-12">
+<div class="flex flex-col w-100 bg-gray-900 p-12 pb-20">
   
 
   <!-- This is the form container that will be centered inside the outer container -->
