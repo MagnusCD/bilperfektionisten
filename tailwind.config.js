@@ -46,5 +46,15 @@ module.exports = {
   },
 };
 
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        customcolor: '#F8ECA3' // Replace with your custom color code
+      }
+    }
+  }
+};
 
 module.exports = config;
+

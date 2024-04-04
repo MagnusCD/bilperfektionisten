@@ -17,3 +17,7 @@
   body {
     font-family: 'LTSaeada', sans-serif;
   } 
+
+  :global(.fa-check-circle) {
+    color: var(--custom-yellow); /* Use CSS variables or directly set the color */
+  }
