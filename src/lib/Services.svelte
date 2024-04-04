@@ -32,21 +32,22 @@
   <!-- Left side with the image -->
     <div class="image w-1/3 bg-cover bg-center" style="background-image: url({imageUrl});"></div>
 
-  
     <div class="wrapper">
-    <h2 class="title text-center text-white text-2xl font-bold mb-4 mt-8">{sectionTitle}</h2>
+        <h2 class="title text-center text-white text-2xl font-bold mb-4 mt-8">{sectionTitle}</h2>
 
-
-      <!-- Right side with content -->
-      <div id="services-section" class="pl-4 pr-1 space-y-6 overflow-scroll">
-        {#if sectionContent}
-        {@html sectionContent
-          .split('\n')
-          .map(line => line.trim() !== '' ? `<p class="flex items-center text-white text-lg"><span class="text-[#F8ECA3] fas fa-check-circle mr-2"></span>${line}</p>` : `<p class="text-white text-lg">${line}</p>`)
-          .join('')}
-        {/if}
+        <!-- Right side with content -->
+        <div id="services-section" class="pl-4 pr-1 space-y-6 overflow-scroll">
+          {#if sectionContent}
+            {@html sectionContent.split('\n\n').map((paragraph, index) => {
+              const lines = paragraph.split('\n');
+              return `<div class="${index > 0 ? 'pt-4' : ''}">` + // Add space before all paragraphs except the first
+                `<p class="flex items-center text-white text-lg"><span class="text-[#F8ECA3] fas fa-check-circle mr-2"></span>${lines[0]}</p>` +
+                `${lines.slice(1).map(line => `<p class="text-white text-lg pl-[26px]">${line}</p>`).join('')}` +
+                `</div>`;
+            }).join('')}
+          {/if}
+        </div>
     </div>
-  </div>
 </div>
 
 <style>
