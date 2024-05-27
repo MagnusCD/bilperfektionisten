@@ -1,7 +1,9 @@
 <script>
-    import { db } from '$lib/firebase';
+    import { db, auth } from '$lib/firebase';
     import { collection, getDocs, addDoc, query, where } from 'firebase/firestore';
+    import { onAuthStateChanged } from 'firebase/auth';
     import { onMount } from 'svelte';
+    import { goto } from '$app/navigation';
 
     let name = '';
     let email = '';
@@ -13,6 +15,7 @@
     let availableSlots = [];
     let noSlotsAvailableMessage = '';
     let upcomingDates = getUpcomingDates(14); // Get dates for the next 14 days (2 weeks)
+    let user = null;
 
     function getUpcomingDates(days) {
         let dates = [];
@@ -73,14 +76,22 @@
         }
     }
 
-    onMount(async () => {
-        if (selectedDate) {
-            await fetchAvailableSlots();
-        }
+    onMount(() => {
+        onAuthStateChanged(auth, (u) => {
+            if (u) {
+                user = u;
+                if (selectedDate) {
+                    fetchAvailableSlots();
+                }
+            } else {
+                goto('/login');
+            }
+        });
     });
 </script>
 
-<div class="flex flex-col w-100 bg-gray-900 p-12 pb-20">
+{#if user}
+  <div class="flex flex-col w-100 bg-gray-900 p-12 pb-20">
     <h1 class="text-xl text-white font-bold mb-4 text-center">Booking Form</h1>
     <form on:submit|preventDefault={handleBooking} class="w-full max-w-lg p-4 rounded-lg">
       <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Navn" bind:value={name} required />
@@ -115,16 +126,95 @@
       </button>
     </form>
   </div>
-  
-  <style>
-    .flex {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-  
-    .flex-col {
-      flex-direction: column;
-    }
-  </style>
+{:else}
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-900">
+    <h1 class="text-2xl text-white mb-6">Checking authentication...</h1>
+  </div>
+{/if}
+
+<style>
+  .flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .flex-col {
+    flex-direction: column;
+  }
+
+  .p-12 {
+    padding: 3rem;
+  }
+
+  .mb-2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .mb-4 {
+    margin-bottom: 1rem;
+  }
+
+  .mt-8 {
+    margin-top: 2rem;
+  }
+
+  .text-xl {
+    font-size: 1.25rem;
+  }
+
+  .font-bold {
+    font-weight: 700;
+  }
+
+  .border {
+    border-width: 1px;
+    border-color: white;
+  }
+
+  .rounded {
+    border-radius: 0.25rem;
+  }
+
+  .p-2 {
+    padding: 0.5rem;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+
+  .shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  .appearance-none {
+    appearance: none;
+  }
+
+  .leading-tight {
+    line-height: 1.25;
+  }
+
+  .focus\:outline-none {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+
+  .focus\:shadow-outline {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  }
+
+  .bg-blue-500 {
+    background-color: #4299e1;
+  }
+
+  .hover\:bg-blue-700:hover {
+    background-color: #2b6cb0;
+  }
+
+  .text-white {
+    color: #ffffff;
+  }
+</style>

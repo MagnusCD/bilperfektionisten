@@ -1,19 +1,70 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+const nodemailer = require("nodemailer");
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+admin.initializeApp();
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "your-email@gmail.com", // your email
+    pass: "your-email-password", // your email password or app password
+  },
+});
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
+  const mailOptions = {
+    from: "your-email@gmail.com",
+    to: user.email,
+    subject: "Welcome to Our Service",
+    text: `Hello ${user.displayName || user.email}, welcome to our service!`,
+  };
+
+  return transporter.sendMail(mailOptions, (error, data) => {
+    if (error) {
+      console.log("Error sending email:", error);
+    } else {
+      console.log("Email sent successfully");
+    }
+  });
+});
+
+exports.sendBookingConfirmation = functions.firestore
+  .document("bookings/{bookingId}")
+  .onCreate((snap) => {
+    const booking = snap.data();
+    const mailOptions = {
+      from: "your-email@gmail.com",
+      to: booking.email,
+      subject: "Booking Confirmation",
+      text: `Hello ${booking.name}, your booking is confirmed for ${booking.date} from ${booking.start} to ${booking.end}.`,
+    };
+
+    return transporter.sendMail(mailOptions, (error, data) => {
+      if (error) {
+        console.log("Error sending email:", error);
+      } else {
+        console.log("Email sent successfully");
+      }
+    });
+  });
+
+exports.sendBookingUpdate = functions.firestore
+  .document("bookings/{bookingId}")
+  .onUpdate((change) => {
+    const booking = change.after.data();
+    const mailOptions = {
+      from: "your-email@gmail.com",
+      to: booking.email,
+      subject: "Booking Updated",
+      text: `Hello ${booking.name}, your booking has been updated to ${booking.date} from ${booking.start} to ${booking.end}.`,
+    };
+
+    return transporter.sendMail(mailOptions, (error, data) => {
+      if (error) {
+        console.log("Error sending email:", error);
+      } else {
+        console.log("Email sent successfully");
+      }
+    });
+  });

@@ -25,6 +25,7 @@
 	"dependencies": {
 		"autoprefixer": "^10.4.19",
 		"firebase": "^10.10.0",
+		"lint": "^0.8.19",
 		"postcss": "^8.4.38",
 		"svelte-inview": "^4.0.2",
 		"tailwindcss": "^3.4.3"

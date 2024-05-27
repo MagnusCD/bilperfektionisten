@@ -37,10 +37,10 @@
             <div class="user-menu">
                 {#if user}
                     <p class="user-info">Logged in as <span>{user.email}</span></p>
-                    <button on:click={handleSignOut}>Sign Out</button>
+                    <button class="sign-out-button" on:click={handleSignOut}>Sign Out</button>
                 {:else}
                     <p class="user-info">Not logged in</p>
-                    <a href="/login">Login</a>
+                    <a href="/login" class="login-button">Login</a>
                 {/if}
             </div>
         {/if}
@@ -93,7 +93,7 @@
         border-radius: 5px 0 0 5px;
         padding: 10px;
         z-index: 1001;
-        width: 200px;
+        width: 300px;
     }
 
     .user-menu p,
@@ -108,15 +108,47 @@
         overflow-wrap: break-word; /* Ensure long text breaks into a new line */
     }
 
-    .user-menu button {
-        background: none;
-        border: none;
-        cursor: pointer;
+    .user-menu button,
+    .user-menu a {
+        display: inline-block;
+        width: 100%;
     }
 
-    .user-menu button:hover,
-    .user-menu a:hover {
-        color: #f7bd4d;
+    .user-menu .login-button {
+        background-color: #4299e1; /* bg-blue-500 */
+        color: white;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .user-menu .login-button:hover {
+        background-color: #2b6cb0; /* hover:bg-blue-700 */
+    }
+
+    .user-menu .sign-out-button {
+        background-color: #f56565; /* bg-red-500 */
+        color: white;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+    }
+
+    .user-menu .sign-out-button:hover {
+        background-color: #c53030; /* hover:bg-red-700 */
+    }
+
+    .user-menu .login-button:focus,
+    .user-menu .sign-out-button:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* focus:shadow-outline */
     }
 
     .call-us-widget a:hover {
