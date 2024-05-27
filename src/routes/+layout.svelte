@@ -5,10 +5,12 @@
     import Hero from "$lib/Hero.svelte";
     import Footer from "$lib/Footer.svelte";
     import CookieConsent from '$lib/CookieConsent.svelte';
+    import SideWidgets from "$lib/SideWidgets.svelte";
 </script>
 
 
 <Preheader />
+<SideWidgets />
 <Navigation />
 <Hero />
 

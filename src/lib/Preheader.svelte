@@ -14,35 +14,26 @@
         </a>
     </div>
 
-    <div class="flex items-center">
+    <div class="flex items-center justify-center flex-grow">
         <a href="/" class="logo">
             <img src={logoUrl} alt="Logo" />
         </a>
     </div>    
-
-    <div class="flex pr-4 flex-col items-start space-y-1 pr-4">
-        <a href="tel:+22942554" class="hover:text-gray-300">
-            <span class="call-us font-bold">Ring til os</span><br>
-            <i class="fas fa-phone-volume flex justify-center"></i> 
-        </a>
-    </div>
 </div>
 
 <style>
-    .call-us {
-        font-family: 'Montserrat', sans-serif;
-    }
-
-    .fa-phone-volume {
-        color: #F7BD4D;
-    }
     .preheader-container {
         background-color: #20252B;
         height: 90px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
+
     .logo {
         width: 140px;
-        margin-left: -35px;
+        margin-left: -125px;
     }
 
     .some-container {
@@ -53,5 +44,6 @@
         padding-left: 20px;
         margin-left: -20px;
         clip-path: polygon(0 0, 80% 0%, 50% 100%, 0% 100%);
+        z-index: 3;
     }
 </style>

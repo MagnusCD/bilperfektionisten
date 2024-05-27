@@ -18,6 +18,16 @@ const heroContent = {
     title: 'Om os',
     subtitle: 'Lær mere om hvem vi er her'
   },
+  '/booking': {
+    imageUrl: 'hero-image.jpeg',
+    title: 'Booking',
+    subtitle: 'Book en tid til bilpleje her'
+  },
+  '/admin': {
+    imageUrl: 'hero-image.jpeg',
+    title: 'Om os',
+    subtitle: 'Lær mere om hvem vi er her'
+  },
   // Add more routes as needed
 };
 

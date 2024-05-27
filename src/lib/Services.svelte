@@ -36,7 +36,7 @@
         <h2 class="title text-center text-white text-2xl font-bold mb-4 mt-8">{sectionTitle}</h2>
 
         <!-- Right side with content -->
-        <div id="services-section" class="pl-4 pr-1 space-y-6 overflow-scroll">
+        <div id="services-section" class="pl-4 pr-1 space-y-6 overflow-hide">
           {#if sectionContent}
             {@html sectionContent.split('\n\n').map((paragraph, index) => {
               const lines = paragraph.split('\n');
