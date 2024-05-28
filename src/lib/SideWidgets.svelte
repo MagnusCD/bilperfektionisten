@@ -37,10 +37,10 @@
             <div class="user-menu">
                 {#if user}
                     <p class="user-info">Logget ind som <span>{user.email}</span></p>
-                    <button class="sign-out-button" on:click={handleSignOut}>Sign Out</button>
+                    <button class="sign-out-button" on:click={handleSignOut}>Log ud</button>
                 {:else}
                     <p class="user-info">Du er ikke logget ind</p>
-                    <a href="/login" class="login-button">Login</a>
+                    <a href="/login" class="login-button">Log ind</a>
                 {/if}
             </div>
         {/if}

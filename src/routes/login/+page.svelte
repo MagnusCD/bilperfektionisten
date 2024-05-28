@@ -28,10 +28,10 @@
 </script>
 
 <div class="login-container bg-gray-900 text-white">
-    <h1 class="text-2xl mb-6">Login</h1>
+    <h1 class="text-2xl mb-6">Log ind</h1>
     <input type="email" placeholder="Email" bind:value={email} class="input-field" />
     <input type="password" placeholder="Adgangskode" bind:value={password} class="input-field" />
-    <button on:click={handleLogin} class="login-button">Login</button>
+    <button on:click={handleLogin} class="login-button">Log ind</button>
     <button on:click={() => goto('/register')} class="register-button">Opret Bruger</button>
     {#if $errorMessage}
         <p class="error">{$errorMessage}</p>

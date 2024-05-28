@@ -1,6 +1,6 @@
 <script>
   import { db, auth } from '$lib/firebase';
-  import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
+  import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc, query, limit, startAfter } from 'firebase/firestore';
   import { onAuthStateChanged } from 'firebase/auth';
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
@@ -9,14 +9,36 @@
   let newTime = { start: '', end: '', date: '' };
   let availableTimes = [];
   let editMode = { status: false, id: null, type: '' };
-  let updatedBooking = { name: '', email: '', telephone: '', date: '', start: '', end: '', message: '' };
+  let updatedBooking = { name: '', email: '', telephone: '', nummerplade: '', date: '', start: '', end: '', message: '', dyrIBilen: false };
   let updatedTime = { start: '', end: '', date: '' };
   let user = null;
   let isLoading = true;
+  let lastVisible = null;
+  let itemsPerPage = 5;
 
   async function fetchBookings() {
-      const querySnapshot = await getDocs(collection(db, 'bookings'));
-      bookings = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const q = query(collection(db, 'bookings'), limit(itemsPerPage));
+      const querySnapshot = await getDocs(q);
+      bookings = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a, b) => {
+          if (a.date === b.date) {
+              return a.start.localeCompare(b.start);
+          }
+          return a.date.localeCompare(b.date);
+      });
+      lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+  }
+
+  async function loadMoreBookings() {
+      const q = query(collection(db, 'bookings'), startAfter(lastVisible), limit(itemsPerPage));
+      const querySnapshot = await getDocs(q);
+      const newBookings = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a, b) => {
+          if (a.date === b.date) {
+              return a.start.localeCompare(b.start);
+          }
+          return a.date.localeCompare(b.date);
+      });
+      bookings = [...bookings, ...newBookings];
+      lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
   }
 
   async function fetchAvailableTimes() {
@@ -94,91 +116,99 @@
 
 {#if isLoading}
 <div class="flex flex-col items-center justify-center min-h-screen bg-gray-900">
-  <h1 class="text-2xl text-white mb-6">Checking authentication...</h1>
+  <h1 class="text-2xl text-white mb-6">Kontrollerer godkendelse...</h1>
 </div>
 {:else if user}
 <div class="flex flex-col w-100 bg-gray-900 p-12 pb-20">
   <div class="p-12 text-white max-w-4xl mx-auto">
     <h1 class="text-xl font-bold mb-4">Admin Panel</h1>
     
-    <h2 class="text-lg font-bold mb-4">Bookings</h2>
+    <h2 class="text-lg font-bold mb-4">Bookinger</h2>
     <div class="booking-table">
       {#each bookings as booking}
         {#if editMode.status && editMode.id === booking.id && editMode.type === 'booking'}
           <div class="booking-row edit-mode">
-            <input type="text" bind:value={updatedBooking.name} class="input-field" placeholder="Name" />
+            <input type="text" bind:value={updatedBooking.name} class="input-field" placeholder="Navn" />
             <input type="email" bind:value={updatedBooking.email} class="input-field" placeholder="Email" />
-            <input type="tel" bind:value={updatedBooking.telephone} class="input-field" placeholder="Telephone" />
-            <input type="date" bind:value={updatedBooking.date} class="input-field" placeholder="Date" />
-            <input type="time" bind:value={updatedBooking.start} class="input-field" placeholder="Start Time" />
-            <input type="time" bind:value={updatedBooking.end} class="input-field" placeholder="End Time" />
+            <input type="tel" bind:value={updatedBooking.telephone} class="input-field" placeholder="Telefon" />
+            <input type="text" bind:value={updatedBooking.nummerplade} class="input-field" placeholder="Nummerplade" />
+            <input type="date" bind:value={updatedBooking.date} class="input-field" placeholder="Dato" />
+            <input type="time" bind:value={updatedBooking.start} class="input-field" placeholder="Starttid" />
+            <input type="time" bind:value={updatedBooking.end} class="input-field" placeholder="Sluttid" />
             <select bind:value={updatedBooking.message} class="input-field">
               <option value="Fuld Klargøring">Fuld Klargøring</option>
               <option value="Udvendig Klargøring">Udvendig Klargøring</option>
               <option value="Indvendig Klargøring">Indvendig Klargøring</option>
             </select>
+            <label class="inline-flex items-center mt-2">
+              <input type="checkbox" bind:checked={updatedBooking.dyrIBilen} class="form-checkbox h-5 w-5 text-blue-600">
+              <span class="ml-2 text-white">Har der været dyr i bilen</span>
+            </label>
             <div class="actions">
-              <button class="btn btn-save" on:click={saveEdit}>Save</button>
-              <button class="btn btn-cancel" on:click={cancelEdit}>Cancel</button>
+              <button class="btn btn-save" on:click={saveEdit}>Gem</button>
+              <button class="btn btn-cancel" on:click={cancelEdit}>Annuller</button>
             </div>
           </div>
         {:else}
           <div class="booking-row">
-            <div class="booking-cell" data-label="Name">Name: {booking.name}</div>
-            <div class="booking-cell" data-label="Email">Email: {booking.email}</div>
-            <div class="booking-cell" data-label="Telephone">Telephone: {booking.telephone}</div>
-            <div class="booking-cell" data-label="Date">Date: {booking.date}</div>
-            <div class="booking-cell" data-label="Start Time">Start Time: {booking.start}</div>
-            <div class="booking-cell" data-label="End Time">End Time: {booking.end}</div>
-            <div class="booking-cell" data-label="Service">Service: {booking.message}</div>
+            <div class="booking-cell">Navn: {booking.name}</div>
+            <div class="booking-cell">Email: {booking.email}</div>
+            <div class="booking-cell">Telefon: {booking.telephone}</div>
+            <div class="booking-cell">Nummerplade: {booking.nummerplade}</div>
+            <div class="booking-cell">Dato: {booking.date}</div>
+            <div class="booking-cell">Starttid: {booking.start}</div>
+            <div class="booking-cell">Sluttid: {booking.end}</div>
+            <div class="booking-cell">Service: {booking.message}</div>
+            <div class="booking-cell">Har der været dyr i bilen: {booking.dyrIBilen ? 'Ja' : 'Nej'}</div>
             <div class="actions">
-              <button class="btn btn-edit" on:click={() => setEditMode(booking, 'booking')}>Edit</button>
-              <button class="btn btn-delete" on:click={() => deleteBooking(booking.id)}>Delete</button>
+              <button class="btn btn-edit" on:click={() => setEditMode(booking, 'booking')}>Rediger</button>
+              <button class="btn btn-delete" on:click={() => deleteBooking(booking.id)}>Slet</button>
             </div>
           </div>
         {/if}
       {/each}
     </div>
+    <button class="btn btn-load-more mt-4" on:click={loadMoreBookings}>Indlæs Mere</button>
   
-    <h2 class="text-lg font-bold mb-4 mt-8">Available Times</h2>
+    <h2 class="text-lg font-bold mb-4 mt-8">Ledige Tider</h2>
     <div class="time-table">
       {#each availableTimes as time}
         {#if editMode.status && editMode.id === time.id && editMode.type === 'time'}
           <div class="time-row edit-mode">
-            <input type="date" bind:value={updatedTime.date} class="input-field" placeholder="Date" />
-            <input type="text" bind:value={updatedTime.start} class="input-field" placeholder="Start Time" />
-            <input type="text" bind:value={updatedTime.end} class="input-field" placeholder="End Time" />
+            <input type="date" bind:value={updatedTime.date} class="input-field" placeholder="Dato" />
+            <input type="text" bind:value={updatedTime.start} class="input-field" placeholder="Starttid" />
+            <input type="text" bind:value={updatedTime.end} class="input-field" placeholder="Sluttid" />
             <div class="actions">
-              <button class="btn btn-save" on:click={saveEdit}>Save</button>
-              <button class="btn btn-cancel" on:click={cancelEdit}>Cancel</button>
+              <button class="btn btn-save" on:click={saveEdit}>Gem</button>
+              <button class="btn btn-cancel" on:click={cancelEdit}>Annuller</button>
             </div>
           </div>
         {:else}
           <div class="time-row">
-            <div class="time-cell" data-label="Date">Date: {time.date || 'General'}</div>
-            <div class="time-cell" data-label="Start Time">Start Time: {time.start}</div>
-            <div class="time-cell" data-label="End Time">End Time: {time.end}</div>
+            <div class="time-cell">Dato: {time.date || 'Generel'}</div>
+            <div class="time-cell">Starttid: {time.start}</div>
+            <div class="time-cell">Sluttid: {time.end}</div>
             <div class="actions">
-              <button class="btn btn-edit" on:click={() => setEditMode(time, 'time')}>Edit</button>
-              <button class="btn btn-delete" on:click={() => deleteAvailableTime(time.id)}>Delete</button>
+              <button class="btn btn-edit" on:click={() => setEditMode(time, 'time')}>Rediger</button>
+              <button class="btn btn-delete" on:click={() => deleteAvailableTime(time.id)}>Slet</button>
             </div>
           </div>
         {/if}
       {/each}
     </div>
   
-    <h2 class="text-lg font-bold mb-4 mt-8">Add Specific Available Time</h2>
+    <h2 class="text-lg font-bold mb-4 mt-8">Tilføj Specifik Tilgængelig Tid</h2>
     <form on:submit|preventDefault={addAvailableTime} class="mb-4">
-      <input type="date" bind:value={newTime.date} placeholder="Date (optional)" class="input-field" />
-      <input type="text" bind:value={newTime.start} placeholder="Start Time (HH:MM)" required class="input-field" />
-      <input type="text" bind:value={newTime.end} placeholder="End Time (HH:MM)" required class="input-field" />
-      <button class="btn btn-add" type="submit">Add Time</button>
+      <input type="date" bind:value={newTime.date} placeholder="Dato (valgfri)" class="input-field" />
+      <input type="text" bind:value={newTime.start} placeholder="Starttid (HH:MM)" required class="input-field" />
+      <input type="text" bind:value={newTime.end} placeholder="Sluttid (HH:MM)" required class="input-field" />
+      <button class="btn btn-add" type="submit">Tilføj Tid</button>
     </form>
   </div>
 </div>
 {:else}
 <div class="flex flex-col items-center justify-center min-h-screen bg-gray-900">
-  <h1 class="text-2xl text-white mb-6">Checking authentication...</h1>
+  <h1 class="text-2xl text-white mb-6">Kontrollerer godkendelse...</h1>
 </div>
 {/if}
 
@@ -413,41 +443,30 @@
   background-color: #2b6cb0;
 }
 
+.btn-load-more {
+  background-color: #4299e1;
+  margin-top: 1rem;
+}
+
+.btn-load-more:hover {
+  background-color: #2b6cb0;
+}
+
+.booking-row, .time-row {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
 @media (max-width: 768px) {
   .booking-row, .time-row {
-    display: block;
-    border: 1px solid white;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
+    grid-template-columns: 1fr;
   }
-
+  
   .booking-cell, .time-cell {
-    flex: 1 1 100%;
-    padding-left: 50%;
-    position: relative;
-    text-align: left;
-    border: none;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid #444;
   }
 
-  .booking-cell:before, .time-cell:before {
-    content: attr(data-label);
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    white-space: nowrap;
-    color: white;
-  }
-
-  .actions {
-    flex: 1 1 100%;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .booking-header, .time-header {
-    display: none;
+  .booking-cell:last-child, .time-cell:last-child {
+    border-bottom: none;
   }
 }
 </style>

@@ -30,8 +30,8 @@ const heroContent = {
   },
   '/login': {
     imageUrl: 'hero-image.jpeg',
-    title: 'Login side',
-    subtitle: 'Login eller opret en bruger her'
+    title: 'Log ind side',
+    subtitle: 'Log ind eller opret en bruger her'
   },
 };
 
