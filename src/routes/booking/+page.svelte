@@ -73,8 +73,20 @@
       return end.toTimeString().split(' ')[0].slice(0, 5);
   }
 
+  function isBookingWithin12Hours(selectedDate, startTime) {
+      const now = new Date();
+      const bookingDateTime = new Date(`${selectedDate}T${startTime}`);
+      const hoursDifference = (bookingDateTime - now) / (1000 * 60 * 60);
+      return hoursDifference < 12;
+  }
+
   async function handleBooking() {
       try {
+          if (isBookingWithin12Hours(selectedDate, startTime)) {
+              alert('Du kan ikke booke tider mindre end 12 timer fra nu.');
+              return;
+          }
+
           const endTime = calculateEndTime(startTime, message);
 
           await addDoc(collection(db, 'bookings'), {
