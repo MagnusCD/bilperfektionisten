@@ -25,10 +25,14 @@ const heroContent = {
   },
   '/admin': {
     imageUrl: 'hero-image.jpeg',
-    title: 'Om os',
-    subtitle: 'Lær mere om hvem vi er her'
+    title: 'Admin Panel',
+    subtitle: ''
   },
-  // Add more routes as needed
+  '/login': {
+    imageUrl: 'hero-image.jpeg',
+    title: 'Login side',
+    subtitle: 'Login eller opret en bruger her'
+  },
 };
 
 // Reactive statement to update hero content based on the current route

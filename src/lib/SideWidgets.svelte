@@ -36,10 +36,10 @@
         {#if $menuVisible}
             <div class="user-menu">
                 {#if user}
-                    <p class="user-info">Logged in as <span>{user.email}</span></p>
+                    <p class="user-info">Logget ind som <span>{user.email}</span></p>
                     <button class="sign-out-button" on:click={handleSignOut}>Sign Out</button>
                 {:else}
-                    <p class="user-info">Not logged in</p>
+                    <p class="user-info">Du er ikke logget ind</p>
                     <a href="/login" class="login-button">Login</a>
                 {/if}
             </div>

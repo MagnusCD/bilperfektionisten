@@ -17,17 +17,22 @@
                 goto('/booking');
             }
         } catch (error) {
-            errorMessage.set(error.message);
+            let message = '';
+            switch (error.code) {
+                default:
+                    message = 'Email eller adgangskode er forkert. Prøv igen.';
+            }
+            errorMessage.set(message);
         }
     };
 </script>
 
 <div class="login-container bg-gray-900 text-white">
-    <h1>Login</h1>
-    <input type="email" placeholder="Email" bind:value={email} />
-    <input type="password" placeholder="Password" bind:value={password} />
-    <button on:click={handleLogin}>Login</button>
-    <button on:click={() => goto('/register')}>Register</button>
+    <h1 class="text-2xl mb-6">Login</h1>
+    <input type="email" placeholder="Email" bind:value={email} class="input-field" />
+    <input type="password" placeholder="Adgangskode" bind:value={password} class="input-field" />
+    <button on:click={handleLogin} class="login-button">Login</button>
+    <button on:click={() => goto('/register')} class="register-button">Opret Bruger</button>
     {#if $errorMessage}
         <p class="error">{$errorMessage}</p>
     {/if}
@@ -42,19 +47,47 @@
         height: 100vh;
     }
 
-    input {
+    .input-field {
         margin: 0.5rem 0;
-        padding: 0.5rem;
-        width: 200px;
+        padding: 0.75rem;
+        width: 300px;
+        border-radius: 0.25rem;
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        outline: none;
+        color: black;
     }
 
-    button {
+    .login-button,
+    .register-button {
         margin: 0.5rem 0;
-        padding: 0.5rem 1rem;
-        width: 200px;
+        padding: 0.75rem 1.5rem;
+        width: 300px;
+        border-radius: 0.25rem;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .login-button {
+        background-color: #4299e1; /* Tailwind's blue-500 */
+    }
+
+    .login-button:hover {
+        background-color: #2b6cb0; /* Tailwind's blue-700 */
+    }
+
+    .register-button {
+        background-color: #48bb78; /* Tailwind's green-500 */
+    }
+
+    .register-button:hover {
+        background-color: #2f855a; /* Tailwind's green-700 */
     }
 
     .error {
         color: red;
+        margin-top: 1rem;
     }
 </style>
