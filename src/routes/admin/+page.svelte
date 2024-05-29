@@ -9,7 +9,7 @@
   let newTime = { start: '', end: '', date: '' };
   let availableTimes = [];
   let editMode = { status: false, id: null, type: '' };
-  let updatedBooking = { name: '', email: '', telephone: '', nummerplade: '', date: '', start: '', end: '', message: '', dyrIBilen: false };
+  let updatedBooking = { name: '', email: '', telephone: '', nummerplade: '', date: '', start: '', end: '', message: '', by: '', adresse: '', kommentar: '', dyrIBilen: false };
   let updatedTime = { start: '', end: '', date: '' };
   let user = null;
   let isLoading = true;
@@ -132,6 +132,9 @@
             <input type="email" bind:value={updatedBooking.email} class="input-field" placeholder="Email" />
             <input type="tel" bind:value={updatedBooking.telephone} class="input-field" placeholder="Telefon" />
             <input type="text" bind:value={updatedBooking.nummerplade} class="input-field" placeholder="Nummerplade" />
+            <input type="text" bind:value={updatedBooking.by} class="input-field" placeholder="By" />
+            <input type="text" bind:value={updatedBooking.adresse} class="input-field" placeholder="Adresse" />
+            <textarea bind:value={updatedBooking.kommentar} class="input-field" placeholder="Kommentar"></textarea>
             <input type="date" bind:value={updatedBooking.date} class="input-field" placeholder="Dato" />
             <input type="time" bind:value={updatedBooking.start} class="input-field" placeholder="Starttid" />
             <input type="time" bind:value={updatedBooking.end} class="input-field" placeholder="Sluttid" />
@@ -155,10 +158,13 @@
             <div class="booking-cell">Email: {booking.email}</div>
             <div class="booking-cell">Telefon: {booking.telephone}</div>
             <div class="booking-cell">Nummerplade: {booking.nummerplade}</div>
+            <div class="booking-cell">By: {booking.by}</div>
+            <div class="booking-cell">Adresse: {booking.adresse}</div>
             <div class="booking-cell">Dato: {booking.date}</div>
             <div class="booking-cell">Starttid: {booking.start}</div>
             <div class="booking-cell">Sluttid: {booking.end}</div>
             <div class="booking-cell">Service: {booking.message}</div>
+            <div class="booking-cell">Kommentar: {booking.kommentar}</div>
             <div class="booking-cell">Har der været dyr i bilen: {booking.dyrIBilen ? 'Ja' : 'Nej'}</div>
             <div class="actions">
               <button class="btn btn-edit" on:click={() => setEditMode(booking, 'booking')}>Rediger</button>

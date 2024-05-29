@@ -9,10 +9,14 @@
   let email = '';
   let telephone = '';
   let nummerplade = '';
+  let by = ''; // Added field for city
+  let adresse = ''; // Added field for street number
+  let kommentar = ''; // Added field for comments
   let selectedDate = '';
   let startTime = '';
   let message = ''; 
   let dyrIBilen = false;
+  let gdprAccepted = false; // Added GDPR checkbox
   let availableSlots = [];
   let noSlotsAvailableMessage = '';
   let upcomingDates = getUpcomingDates(14);
@@ -87,6 +91,11 @@
               return;
           }
 
+          if (!gdprAccepted) {
+              alert('Du skal acceptere behandlingen af personfølsomme data.');
+              return;
+          }
+
           const endTime = calculateEndTime(startTime, message);
 
           await addDoc(collection(db, 'bookings'), {
@@ -94,6 +103,9 @@
               email,
               telephone,
               nummerplade,
+              by, // Added field for city
+              adresse, // Added field for street number
+              kommentar, // Added field for comments
               date: selectedDate,
               start: startTime,
               end: endTime,
@@ -105,10 +117,14 @@
           name = '';
           telephone = '';
           nummerplade = '';
+          by = ''; // Reset city field
+          adresse = ''; // Reset street number field
+          kommentar = ''; // Reset comments field
           selectedDate = '';
           startTime = '';
           message = '';
           dyrIBilen = false;
+          gdprAccepted = false; // Reset GDPR checkbox
           await fetchAvailableSlots();
           await fetchUserBookings();
       } catch (error) {
@@ -171,6 +187,9 @@
     <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" placeholder="Email" bind:value={email} disabled />
     <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="tel" placeholder="Telefon" bind:value={telephone} required />
     <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Nummerplade" bind:value={nummerplade} required />
+    <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="By" bind:value={by} required /> <!-- Added city field -->
+    <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Adresse" bind:value={adresse} required /> <!-- Added street number field -->
+    <textarea class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Kommentar (valgfri)" bind:value={kommentar}></textarea> <!-- Added comments field -->
     <select class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" bind:value={selectedDate} on:change={fetchAvailableSlots} required>
       <option value="" disabled selected>Vælg dato</option>
       {#each upcomingDates as date}
@@ -193,6 +212,10 @@
       <span class="mr-2 text-white">Har der været dyr i bilen?</span> 
       <input type="checkbox" bind:checked={dyrIBilen} class="form-checkbox h-5 w-5 text-blue-600">
     </label>
+    <label class="inline-flex items-center mt-3">
+      <span class="mr-2 text-white">Jeg accepterer behandlingen af personfølsomme data</span> 
+      <input type="checkbox" bind:checked={gdprAccepted} class="form-checkbox h-5 w-5 text-blue-600" required>
+    </label>
     <br><br>
     <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2" type="submit" disabled={noSlotsAvailableMessage}>
       Bekræft Booking
@@ -214,6 +237,9 @@
           <div class="booking-cell text-white mb-2"><strong>Email:</strong> {booking.email}</div>
           <div class="booking-cell text-white mb-2"><strong>Telefon:</strong> {booking.telephone}</div>
           <div class="booking-cell text-white mb-2"><strong>Nummerplade:</strong> {booking.nummerplade}</div>
+          <div class="booking-cell text-white mb-2"><strong>By:</strong> {booking.by}</div> <!-- Added city field -->
+          <div class="booking-cell text-white mb-2"><strong>Adresse:</strong> {booking.adresse}</div> <!-- Added street number field -->
+          <div class="booking-cell text-white mb-2"><strong>Kommentar:</strong> {booking.kommentar}</div> <!-- Added comments field -->
           <div class="booking-cell text-white mb-2"><strong>Dato:</strong> {booking.date}</div>
           <div class="booking-cell text-white mb-2"><strong>Starttid:</strong> {booking.start}</div>
           <div class="booking-cell text-white mb-2"><strong>Sluttid:</strong> {booking.end}</div>

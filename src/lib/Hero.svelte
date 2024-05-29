@@ -21,7 +21,7 @@ const heroContent = {
   '/booking': {
     imageUrl: 'hero-image.jpeg',
     title: 'Booking',
-    subtitle: 'Book en tid til bilpleje her'
+    subtitle: 'Book en tid til bilpleje herunder'
   },
   '/admin': {
     imageUrl: 'hero-image.jpeg',
@@ -31,7 +31,12 @@ const heroContent = {
   '/login': {
     imageUrl: 'hero-image.jpeg',
     title: 'Log ind side',
-    subtitle: 'Log ind eller opret en bruger her'
+    subtitle: 'Log ind eller opret en bruger herunder'
+  },
+  '/register': {
+    imageUrl: 'hero-image.jpeg',
+    title: 'Opret bruger herunder',
+    subtitle: ''
   },
 };
 
@@ -54,6 +59,6 @@ $: currentContent = heroContent[$page.url.pathname] || {
 <style>
   .hero-image {
     margin-top: -65px;
-    height: 90vh;
+    height: 70vh;
   }
 </style>
