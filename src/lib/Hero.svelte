@@ -66,6 +66,7 @@
     margin-top: -65px;
     height: 70vh;
     position: relative;
+    z-index: -1;
   }
   
   .arrow-down {
