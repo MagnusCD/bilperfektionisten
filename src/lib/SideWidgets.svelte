@@ -26,7 +26,7 @@
 
 <div class="widgets-container">
     <div class="widget call-us-widget">
-        <a href="tel:+22942554" class="hover:text-gray-300">
+        <a href="tel:+4522942554" class="hover:text-gray-300">
             <i class="fas fa-phone-volume"></i>
         </a>
     </div>
