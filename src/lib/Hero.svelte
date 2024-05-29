@@ -38,6 +38,11 @@
       title: 'Opret bruger herunder',
       subtitle: ''
     },
+    '/mine-bookinger': {
+      imageUrl: 'hero-image.jpeg',
+      title: 'Find dine bookinger herunder',
+      subtitle: ''
+    },
   };
 
   // Reactive statement to update hero content based on the current route

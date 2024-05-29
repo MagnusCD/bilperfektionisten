@@ -39,7 +39,7 @@
     }
 
     function goToBookings() {
-        goto('/minebookinger');
+        goto('/mine-bookinger');
         menuVisible.set(false);
     }
 </script>
