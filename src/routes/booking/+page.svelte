@@ -204,9 +204,9 @@
     </select>
     <select class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" bind:value={message} required>
       <option value="" disabled selected>Vælg service type</option>
-      <option value="Fuld Klargøring">Fuld Klargøring (2 timer)</option>
-      <option value="Udvendig Klargøring">Udvendig Klargøring (1 time)</option>
-      <option value="Indvendig Klargøring">Indvendig Klargøring (1 time)</option>
+      <option value="Fuld Klargøring">Fuld Klargøring (2 timer - 800 kr.)</option>
+      <option value="Udvendig Klargøring">Udvendig Klargøring (1 time - 500 kr.)</option>
+      <option value="Indvendig Klargøring">Indvendig Klargøring (1 time - 600 kr.)</option>
     </select>
     <label class="inline-flex items-center mt-3">
       <span class="mr-2 text-white">Har der været dyr i bilen?</span> 
