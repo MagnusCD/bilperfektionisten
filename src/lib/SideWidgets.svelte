@@ -168,7 +168,7 @@
     }
 
     .user-menu .sign-out-button {
-    background-color: #e53e3e; /* Red color for the sign-out button */
+    background-color: #f56565;
     color: white;
     font-weight: bold;
     padding: 0.5rem 1rem;
@@ -180,7 +180,7 @@
 }
 
 .user-menu .sign-out-button:hover {
-    background-color: #c53030; /* Darker red for hover state */
+    background-color: #c53030;
 }
 
 .user-menu .sign-out-button:focus {
