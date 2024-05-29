@@ -11,10 +11,24 @@
         onAuthStateChanged(auth, (u) => {
             user = u;
         });
+
+        // Add event listener to close the menu when clicking outside
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
     });
 
     function toggleMenu() {
         menuVisible.update(visible => !visible);
+    }
+
+    function handleClickOutside(event) {
+        const menuElement = document.querySelector('.user-menu');
+        const userWidget = document.querySelector('.user-widget');
+        if (menuElement && !menuElement.contains(event.target) && !userWidget.contains(event.target)) {
+            menuVisible.set(false);
+        }
     }
 
     async function handleSignOut() {
