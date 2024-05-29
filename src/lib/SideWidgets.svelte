@@ -3,6 +3,7 @@
     import { onAuthStateChanged, signOut } from 'firebase/auth';
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
+    import { goto } from '$app/navigation';
 
     let user = null;
     const menuVisible = writable(false);
@@ -36,6 +37,11 @@
         user = null;
         menuVisible.set(false);
     }
+
+    function goToBookings() {
+        goto('/minebookinger');
+        menuVisible.set(false);
+    }
 </script>
 
 <div class="widgets-container">
@@ -52,6 +58,7 @@
                 {#if user}
                     <p class="user-info">Logget ind som <span>{user.email}</span></p>
                     <button class="sign-out-button" on:click={handleSignOut}>Log ud</button>
+                    <button class="bookings-button" on:click={goToBookings}>Mine bookinger</button>
                 {:else}
                     <p class="user-info">Du er ikke logget ind</p>
                     <a href="/login" class="login-button">Log ind</a>
@@ -128,7 +135,9 @@
         width: 100%;
     }
 
-    .user-menu .login-button {
+    .user-menu .login-button,
+    .user-menu .sign-out-button,
+    .user-menu .bookings-button {
         background-color: #4299e1; /* bg-blue-500 */
         color: white;
         font-weight: bold;
@@ -137,29 +146,18 @@
         text-align: center;
         cursor: pointer;
         text-decoration: none;
+        margin-bottom: 10px;
     }
 
-    .user-menu .login-button:hover {
+    .user-menu .login-button:hover,
+    .user-menu .sign-out-button:hover,
+    .user-menu .bookings-button:hover {
         background-color: #2b6cb0; /* hover:bg-blue-700 */
     }
 
-    .user-menu .sign-out-button {
-        background-color: #f56565; /* bg-red-500 */
-        color: white;
-        font-weight: bold;
-        padding: 0.5rem 1rem;
-        border-radius: 0.25rem;
-        text-align: center;
-        cursor: pointer;
-        border: none;
-    }
-
-    .user-menu .sign-out-button:hover {
-        background-color: #c53030; /* hover:bg-red-700 */
-    }
-
     .user-menu .login-button:focus,
-    .user-menu .sign-out-button:focus {
+    .user-menu .sign-out-button:focus,
+    .user-menu .bookings-button:focus {
         outline: 2px solid transparent;
         outline-offset: 2px;
         box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* focus:shadow-outline */
@@ -168,4 +166,26 @@
     .call-us-widget a:hover {
         color: #f7bd4d;
     }
+
+    .user-menu .sign-out-button {
+    background-color: #e53e3e; /* Red color for the sign-out button */
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.user-menu .sign-out-button:hover {
+    background-color: #c53030; /* Darker red for hover state */
+}
+
+.user-menu .sign-out-button:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.5); /* Red outline for focus state */
+}
 </style>

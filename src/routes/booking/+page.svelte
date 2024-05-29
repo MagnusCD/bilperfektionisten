@@ -9,14 +9,10 @@
   let email = '';
   let telephone = '';
   let nummerplade = '';
-  let by = ''; // Added field for city
-  let adresse = ''; // Added field for street number
-  let kommentar = ''; // Added field for comments
   let selectedDate = '';
   let startTime = '';
   let message = ''; 
   let dyrIBilen = false;
-  let gdprAccepted = false; // Added GDPR checkbox
   let availableSlots = [];
   let noSlotsAvailableMessage = '';
   let upcomingDates = getUpcomingDates(14);
@@ -91,11 +87,6 @@
               return;
           }
 
-          if (!gdprAccepted) {
-              alert('Du skal acceptere behandlingen af personfølsomme data.');
-              return;
-          }
-
           const endTime = calculateEndTime(startTime, message);
 
           await addDoc(collection(db, 'bookings'), {
@@ -103,9 +94,6 @@
               email,
               telephone,
               nummerplade,
-              by, // Added field for city
-              adresse, // Added field for street number
-              kommentar, // Added field for comments
               date: selectedDate,
               start: startTime,
               end: endTime,
@@ -117,14 +105,10 @@
           name = '';
           telephone = '';
           nummerplade = '';
-          by = ''; // Reset city field
-          adresse = ''; // Reset street number field
-          kommentar = ''; // Reset comments field
           selectedDate = '';
           startTime = '';
           message = '';
           dyrIBilen = false;
-          gdprAccepted = false; // Reset GDPR checkbox
           await fetchAvailableSlots();
           await fetchUserBookings();
       } catch (error) {
@@ -187,9 +171,6 @@
     <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" placeholder="Email" bind:value={email} disabled />
     <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="tel" placeholder="Telefon" bind:value={telephone} required />
     <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Nummerplade" bind:value={nummerplade} required />
-    <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="By" bind:value={by} required /> <!-- Added city field -->
-    <input class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Adresse" bind:value={adresse} required /> <!-- Added street number field -->
-    <textarea class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Kommentar (valgfri)" bind:value={kommentar}></textarea> <!-- Added comments field -->
     <select class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" bind:value={selectedDate} on:change={fetchAvailableSlots} required>
       <option value="" disabled selected>Vælg dato</option>
       {#each upcomingDates as date}
@@ -204,17 +185,13 @@
     </select>
     <select class="mb-4 p-2 border rounded w-full shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline" bind:value={message} required>
       <option value="" disabled selected>Vælg service type</option>
-      <option value="Fuld Klargøring">Fuld Klargøring (2 timer - 800 kr.)</option>
-      <option value="Udvendig Klargøring">Udvendig Klargøring (1 time - 500 kr.)</option>
-      <option value="Indvendig Klargøring">Indvendig Klargøring (1 time - 600 kr.)</option>
+      <option value="Fuld Klargøring">Fuld Klargøring (1 time 59 minutter)</option>
+      <option value="Udvendig Klargøring">Udvendig Klargøring (59 minutter)</option>
+      <option value="Indvendig Klargøring">Indvendig Klargøring (59 minutter)</option>
     </select>
     <label class="inline-flex items-center mt-3">
       <span class="mr-2 text-white">Har der været dyr i bilen?</span> 
       <input type="checkbox" bind:checked={dyrIBilen} class="form-checkbox h-5 w-5 text-blue-600">
-    </label>
-    <label class="inline-flex items-center mt-3">
-      <span class="mr-2 text-white">Jeg accepterer behandlingen af personfølsomme data</span> 
-      <input type="checkbox" bind:checked={gdprAccepted} class="form-checkbox h-5 w-5 text-blue-600" required>
     </label>
     <br><br>
     <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2" type="submit" disabled={noSlotsAvailableMessage}>
@@ -237,9 +214,6 @@
           <div class="booking-cell text-white mb-2"><strong>Email:</strong> {booking.email}</div>
           <div class="booking-cell text-white mb-2"><strong>Telefon:</strong> {booking.telephone}</div>
           <div class="booking-cell text-white mb-2"><strong>Nummerplade:</strong> {booking.nummerplade}</div>
-          <div class="booking-cell text-white mb-2"><strong>By:</strong> {booking.by}</div> <!-- Added city field -->
-          <div class="booking-cell text-white mb-2"><strong>Adresse:</strong> {booking.adresse}</div> <!-- Added street number field -->
-          <div class="booking-cell text-white mb-2"><strong>Kommentar:</strong> {booking.kommentar}</div> <!-- Added comments field -->
           <div class="booking-cell text-white mb-2"><strong>Dato:</strong> {booking.date}</div>
           <div class="booking-cell text-white mb-2"><strong>Starttid:</strong> {booking.start}</div>
           <div class="booking-cell text-white mb-2"><strong>Sluttid:</strong> {booking.end}</div>
@@ -268,5 +242,256 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.p-12 {
+  padding: 3rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.border {
+  border-width: 1px;
+  border-color: white;
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.appearance-none {
+  appearance: none;
+}
+
+.leading-tight {
+  line-height: 1.25;
+}
+
+.focus\:outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus\:shadow-outline {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+.bg-blue-500 {
+  background-color: #4299e1;
+}
+
+.hover\:bg-blue-700:hover {
+  background-color: #2b6cb0;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.bg-red-500 {
+  background-color: #f56565;
+}
+
+.hover\:bg-red-700:hover {
+  background-color: #c53030;
+}
+
+.bg-green-500 {
+  background-color: #48bb78;
+}
+
+.hover\:bg-green-700:hover {
+  background-color: #2f855a;
+}
+
+.bg-gray-500 {
+  background-color: #a0aec0;
+}
+
+.hover\:bg-gray-700:hover {
+  background-color: #4a5568;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.block {
+  display: block;
+}
+
+.focus\:outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus\:shadow-outline:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+.booking-table, .time-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.booking-header, .time-header {
+  background-color: #2d3748;
+  font-weight: bold;
+}
+
+.booking-row, .time-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid white;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.booking-cell, .time-cell {
+  padding: 0.5rem;
+  border: 1px solid #444;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.input-field {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  appearance: none;
+  line-height: 1.25;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  color: black;
+}
+
+.input-field:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+::placeholder {
+  color: black;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  color: white;
+  display: inline-block;
+}
+
+.btn-edit {
+  background-color: #4299e1;
+}
+
+.btn-edit:hover {
+  background-color: #2b6cb0;
+}
+
+.btn-save {
+  background-color: #48bb78;
+}
+
+.btn-save:hover {
+  background-color: #2f855a;
+}
+
+.btn-delete {
+  background-color: #f56565;
+}
+
+.btn-delete:hover {
+  background-color: #c53030;
+}
+
+.btn-cancel {
+  background-color: #a0aec0;
+}
+
+.btn-cancel:hover {
+  background-color: #4a5568;
+}
+
+.btn-add {
+  background-color: #4299e1;
+}
+
+.btn-add:hover {
+  background-color: #2b6cb0;
+}
+
+.btn-load-more {
+  background-color: #4299e1;
+  margin-top: 1rem;
+}
+
+.btn-load-more:hover {
+  background-color: #2b6cb0;
+}
+
+.booking-row, .time-row {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+@media (max-width: 768px) {
+  .booking-row, .time-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .booking-cell, .time-cell {
+    border-bottom: 1px solid #444;
+  }
+
+  .booking-cell:last-child, .time-cell:last-child {
+    border-bottom: none;
+  }
 }
 </style>
