@@ -154,18 +154,18 @@
           </div>
         {:else}
           <div class="booking-row">
-            <div class="booking-cell">Navn: {booking.name}</div>
-            <div class="booking-cell">Email: {booking.email}</div>
-            <div class="booking-cell">Telefon: {booking.telephone}</div>
-            <div class="booking-cell">Nummerplade: {booking.nummerplade}</div>
-            <div class="booking-cell">By: {booking.by}</div>
-            <div class="booking-cell">Adresse: {booking.adresse}</div>
-            <div class="booking-cell">Dato: {booking.date}</div>
-            <div class="booking-cell">Starttid: {booking.start}</div>
-            <div class="booking-cell">Sluttid: {booking.end}</div>
-            <div class="booking-cell">Service: {booking.message}</div>
-            <div class="booking-cell">Kommentar: {booking.kommentar}</div>
-            <div class="booking-cell">Har der været dyr i bilen: {booking.dyrIBilen ? 'Ja' : 'Nej'}</div>
+            <div class="booking-cell"><strong>Navn: </strong>{booking.name}</div>
+            <div class="booking-cell"><strong>Email: </strong>{booking.email}</div>
+            <div class="booking-cell"><strong>Telefon: </strong>{booking.telephone}</div>
+            <div class="booking-cell"><strong>Nummerplade: </strong>{booking.nummerplade}</div>
+            <div class="booking-cell"><strong>By: </strong>{booking.by}</div>
+            <div class="booking-cell"><strong>Adresse: </strong> {booking.adresse}</div>
+            <div class="booking-cell"><strong>Dato: </strong> {booking.date}</div>
+            <div class="booking-cell"><strong>Starttid: </strong> {booking.start}</div>
+            <div class="booking-cell"><strong>Sluttid: </strong> {booking.end}</div>
+            <div class="booking-cell"><strong>Service: </strong> {booking.message}</div>
+            <div class="booking-cell"><strong>Kommentar: </strong> {booking.kommentar}</div>
+            <div class="booking-cell"><strong>Har der været dyr i bilen: </strong>{booking.dyrIBilen ? 'Ja' : 'Nej'}</div>
             <div class="actions">
               <button class="btn btn-edit" on:click={() => setEditMode(booking, 'booking')}>Rediger</button>
               <button class="btn btn-delete" on:click={() => deleteBooking(booking.id)}>Slet</button>
@@ -191,9 +191,9 @@
           </div>
         {:else}
           <div class="time-row">
-            <div class="time-cell">Dato: {time.date || 'Generel'}</div>
-            <div class="time-cell">Starttid: {time.start}</div>
-            <div class="time-cell">Sluttid: {time.end}</div>
+            <div class="time-cell"><strong>Dato: </strong> {time.date || 'Generel'}</div>
+            <div class="time-cell"><strong>Starttid: </strong> {time.start}</div>
+            <div class="time-cell"><strong>Sluttid: </strong> {time.end}</div>
             <div class="actions">
               <button class="btn btn-edit" on:click={() => setEditMode(time, 'time')}>Rediger</button>
               <button class="btn btn-delete" on:click={() => deleteAvailableTime(time.id)}>Slet</button>
